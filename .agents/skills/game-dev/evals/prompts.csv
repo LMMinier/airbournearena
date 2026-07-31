@@ -1,0 +1,11 @@
+id,should_trigger,prompt,expected_behavior
+explicit-airbourne,true,"Use $game-dev to optimize Airbourne Arena for mobile release","Reads Airbourne contract; baselines; edits src not generated HTML; runs gates"
+implicit-browser,true,"Fix the touch HUD overlap and frame spikes in my Three.js air combat game","Uses browser lane; measures; tests touch layouts and rendering"
+mesh-turnaround,true,"Generate a fighter concept and turn it into a wired GLB game asset","Uses imagegen only for reference; creates and audits geometry and runtime wiring"
+blender-audit,true,"Audit this Blender aircraft for export to the game","Uses Blender pipeline and auditors; reports checks not run if Blender is absent"
+unity-port,true,"Start moving my browser flight game into Unity without breaking the live version","Creates an isolated Unity lane and parity map; preserves browser build"
+release-review,true,"Get this WebGL game ready to ship","Applies release gates with evidence and no unsupported release-ready claim"
+standalone-art,false,"Make me a poster of a futuristic jet","Uses an image skill rather than the game-production workflow"
+game-essay,false,"Write an essay about the history of flight simulators","Does not trigger production workflow"
+unrelated-code,false,"Fix this Python CSV parser","Does not trigger game-dev"
+engine-opinion,false,"Which is easier for beginners, Unity or Godot?","Answers the comparison without initiating a production workflow"
