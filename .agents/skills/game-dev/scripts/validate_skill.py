@@ -77,13 +77,14 @@ def main() -> int:
         if not row.get("prompt") or not row.get("expected_behavior"):
             errors.append(f"eval row {row_number} is incomplete")
 
+    text_suffixes = {".md", ".py", ".csv"}
     for path in root.rglob("*"):
-        if path.is_file() and "UNRESOLVED_SKILL_PLACEHOLDER" in path.read_text(
-            encoding="utf-8"
-        ):
-            errors.append(
-                f"unresolved content placeholder in {path.relative_to(root)}"
-            )
+        if path.is_file() and path.suffix in text_suffixes:
+            body = path.read_text(encoding="utf-8")
+            if "UNRESOLVED_SKILL_PLACEHOLDER" in body:
+                errors.append(
+                    f"unresolved content placeholder in {path.relative_to(root)}"
+                )
 
     if errors:
         print("game-dev skill validation: FAIL")
