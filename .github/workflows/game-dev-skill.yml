@@ -15,8 +15,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Run validator and retain diagnostics
+        id: validator
+        shell: bash
+        run: |
+          set +e
+          python3 .agents/skills/game-dev/scripts/validate_skill.py 2>&1 | tee validation.log
+          status="${PIPESTATUS[0]}"
+          echo "status=$status" >> "$GITHUB_OUTPUT"
+          exit 0
+      - name: Upload validation diagnostics
+        if: always()
+        uses: actions/upload-artifact@v4
         with:
-          python-version: "3.12"
-      - name: Validate skill structure, scripts, and eval set
-        run: python .agents/skills/game-dev/scripts/validate_skill.py
+          name: game-dev-skill-validation
+          path: validation.log
+      - name: Enforce validation result
+        shell: bash
+        run: test "${{ steps.validator.outputs.status }}" -eq 0
